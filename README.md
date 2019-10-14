@@ -7,10 +7,10 @@ Project Reports:
 <br>
 <br>
 Project Members:
-Pınar Ayaz
-Barış Can
-Faruk Oruç
-Ünsal Öztürk
+Pınar Ayaz,
+Barış Can,
+Faruk Oruç,
+Ünsal Öztürk,
 Mert Soydinç
 <br>
 <br>
