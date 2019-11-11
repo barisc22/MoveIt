@@ -3,9 +3,13 @@
 <br>
 <br>
 Project Reports:
+Project Specifications:
+<br>
+<br>
 <a href="https://github.com/barisc22/CS491_SeniorDesignProject/raw/master/project_specifications_report.pdf" title="Project Specifications">Project Specifications</a>
 <br>
 <br>
+Analysis Report:
 <a href="https://github.com/barisc22/CS491_SeniorDesignProject/raw/master/analysis_report.pdf" title="Analysis Report">Analysis Report</a>
 <br>
 <br>
