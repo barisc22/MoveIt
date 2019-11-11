@@ -6,8 +6,6 @@ Project Reports:
 <br>
 <br>
 Project Specifications:
-<br>
-<br>
 <a href="https://github.com/barisc22/CS491_SeniorDesignProject/raw/master/project_specifications_report.pdf" title="Project Specifications">Project Specifications</a>
 <br>
 <br>
