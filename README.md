@@ -13,6 +13,10 @@ Analysis Report:
 <a href="https://github.com/barisc22/CS491_SeniorDesignProject/raw/master/analysis_report.pdf" title="Analysis Report">Analysis Report</a>
 <br>
 <br>
+Design Report:
+<a href="https://github.com/barisc22/CS491_SeniorDesignProject/raw/master/design_report.pdf" title="Design Report">Design Report</a>
+<br>
+<br>
 Project Members:
 Pınar Ayaz,
 Barış Can,
