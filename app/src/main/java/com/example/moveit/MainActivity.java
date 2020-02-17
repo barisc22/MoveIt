@@ -9,6 +9,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 
 import androidx.navigation.NavController;
@@ -17,6 +18,11 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -29,6 +35,7 @@ import android.widget.ImageView;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +84,11 @@ public class MainActivity extends AppCompatActivity {
     private Uri videoUri = null;
     private ImageView imgView;
 
+    //Reference to the database
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = database.getReference("message");
+
+
     public void captureVideo(View view){
         Intent videoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
         if(videoIntent.resolveActivity(getPackageManager()) != null){
@@ -88,6 +100,27 @@ public class MainActivity extends AppCompatActivity {
         Intent playIntent = new Intent(this, PlayVideoActivity.class);
         playIntent.putExtra("videoUri", videoUri.toString());
         startActivity(playIntent);
+
+        // Write a message to the database
+        myRef.setValue("Hello, World!");
+
+        // Read from the database
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                String value = dataSnapshot.getValue(String.class);
+                Log.d(TAG, "Value is: " + value);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+
     }
 
     public void takePhoto(View view){
