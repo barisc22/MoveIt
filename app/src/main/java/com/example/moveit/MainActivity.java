@@ -19,6 +19,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -150,11 +153,39 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == VIDEO_REQUEST && resultCode == RESULT_OK) {
             videoUri = data.getData();
 
+            //get current user to upload data to his/her storage folder
+            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            String firebase_uid = "";
+
+            if (currentUser != null) {
+                for (UserInfo profile : currentUser.getProviderData()) {
+                    // Id of the provider (ex: google.com)
+                    String providerId = profile.getProviderId();
+                    // UID specific to the provider
+                    String uid = profile.getUid();
+                    // save firebase uid
+                    if(providerId.equals("firebase")){
+                        firebase_uid = uid;
+                    }
+                    // Name, email address, and profile photo Url
+                    String name = profile.getDisplayName();
+                    String email = profile.getEmail();
+                    Uri photoUrl = profile.getPhotoUrl();
+
+                    Log.d("providerId", providerId);
+                    Log.d("uid", uid);
+                    Log.d("name", name);
+                    Log.d("email", email);
+                }
+            }
+            else{
+                Log.d("FirebaseUser","FirebaseUser empty");
+            }
+
             // Create a storage reference from our app
             StorageReference storageRef = storage.getReference();
-
             // Create a child reference
-            StorageReference videoRef = storageRef.child("videos/"+System.currentTimeMillis()+".mp4");
+            StorageReference videoRef = storageRef.child(firebase_uid+"/videos/"+System.currentTimeMillis()+".mp4");
 
             videoRef.putFile(videoUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -173,6 +204,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void signOut() {
+        FirebaseAuth.getInstance().signOut();
+
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
