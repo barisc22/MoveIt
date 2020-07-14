@@ -21,6 +21,10 @@ Low Level Design Report:
 <a href="https://github.com/barisc22/MoveIt/blob/master/Low-Level_Design_Report.pdf" title="Design Report">Low Level Design Report</a>
 <br>
 <br>
+Final Report:
+<a href="https://github.com/barisc22/MoveIt/blob/master/Final_Report.pdf" title="Design Report">Final Report</a>
+<br>
+<br>
 Project Members:
 Pınar Ayaz,
 Barış Can,
